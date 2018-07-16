@@ -1,0 +1,12 @@
+/bin/*
+vendor/*
+dist/
+scripts/
+samples/
+
+*.bak
+*.log
+
+config*.yml
+todo.md
+cig
