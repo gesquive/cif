@@ -32,8 +32,8 @@ func main() {
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
 	Use:              "cig [flags] <cert_path> [<cert_path>...]",
-	Short:            "Generate certificate summary information",
-	Long:             `Generate certificate information for multiple PEM formatted certificates`,
+	Short:            "Formats PEM certificates in a human readable (mkcert.org) format",
+	Long:             `Generate certificate summary information for PEM certificates and output (in mkcert.org format)`,
 	ValidArgs:        []string{"cert_path"},
 	PersistentPreRun: runRoot,
 	Run:              run,

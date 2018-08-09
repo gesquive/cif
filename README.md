@@ -3,7 +3,7 @@
 [![Software License](https://img.shields.io/badge/License-MIT-orange.svg?style=flat-square)](https://github.com/gesquive/cig/blob/master/LICENSE)
 [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/gesquive/cig)
 
-Formats PEM formatted certificate stores in a nice human readable format
+Formats PEM certificates in a nice human readable (mkcert.org) format
 
 ## Installing
 
@@ -21,7 +21,7 @@ If on a \*nix/mac system, make sure to run `chmod +x /path/to/cig`.
 ## Usage
 
 ```console
-Generate certificate information for multiple PEM formatted certificates
+Generate certificate summary information for PEM certificates and output (in mkcert.org format)
 
 Usage:
   cig [flags] <cert_path> [<cert_path>...]
