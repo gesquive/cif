@@ -22,9 +22,12 @@ func DecodePEMBlock(data []byte) ([]*Certificate, error) {
 	for data != nil && len(data) > 0 {
 		p, data = pem.Decode(data)
 		if p == nil {
-			return nil, errors.New("Invalid PEM file.")
+			break
 		}
 		blocks = append(blocks, p)
+	}
+	if len(blocks) == 0 {
+		return nil, errors.New("invalid PEM file")
 	}
 
 	// Now, for each block, parse the PEM certificate.
@@ -48,7 +51,7 @@ func parsePEMCertificate(p *pem.Block) (*Certificate, error) {
 	c, err := x509.ParseCertificate(p.Bytes)
 	if err != nil {
 		log.Printf("Invalid certificate: %v.\n", err)
-		return nil, errors.New("Invalid certificate.")
+		return nil, errors.New("invalid certificate")
 	}
 
 	// Transform this into our internal representation.
