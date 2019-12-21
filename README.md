@@ -1,14 +1,15 @@
 # cig
-[![Travis CI](https://img.shields.io/travis/gesquive/cig/master.svg?style=flat-square)](https://travis-ci.org/gesquive/cig)
 [![Software License](https://img.shields.io/badge/License-MIT-orange.svg?style=flat-square)](https://github.com/gesquive/cig/blob/master/LICENSE)
 [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/gesquive/cig)
+[![Pipeline Status](https://img.shields.io/gitlab/pipeline/gesquive/cig?style=flat-square)](https://gitlab.com/gesquive/cig/pipelines)
+[![Coverage Report](https://gitlab.com/gesquive/cig/badges/master/coverage.svg?style=flat-square)](https://gesquive.gitlab.io/cig/coverage.html)
 
 Formats PEM certificates in a nice human readable (mkcert.org) format
 
 ## Installing
 
 ### Compile
-This project requires go 1.10+ to compile. Just run `go get -u github.com/gesquive/cig` and the executable should be built for you automatically in your `$GOPATH`.
+This project has only been tested with go1.11+. To compile just run `go get -u github.com/gesquive/cig` and the executable should be built for you automatically in your `$GOPATH`. This project uses go mods, so you might need to set `GO111MODULE=on` in order for `go get` to complete properly.
 
 Optionally you can run `make install` to build and copy the executable to `/usr/local/bin/` with correct permissions.
 

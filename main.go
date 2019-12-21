@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"runtime"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -12,8 +13,11 @@ import (
 	"github.com/gesquive/cli"
 )
 
-var version = "v0.1.0-git"
-var dirty = ""
+var (
+	buildVersion = "v0.1.0-dev"
+	buildCommit  = ""
+	buildDate    = ""
+)
 
 var cfgFile string
 var displayVersion string
@@ -23,10 +27,7 @@ var verbose bool
 var debug bool
 
 func main() {
-	displayVersion = fmt.Sprintf("cig %s%s",
-		version,
-		dirty)
-	Execute(displayVersion)
+	Execute()
 }
 
 // RootCmd represents the base command when called without any subcommands
@@ -35,16 +36,15 @@ var RootCmd = &cobra.Command{
 	Short:            "Formats PEM certificates in a human readable (mkcert.org) format",
 	Long:             `Generate certificate summary information for PEM certificates and output (in mkcert.org format)`,
 	ValidArgs:        []string{"cert_path"},
-	PersistentPreRun: runRoot,
+	PersistentPreRun: preRun,
 	Run:              run,
 }
 
 // Execute adds all child commands to the root command sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
-func Execute(version string) {
-	displayVersion = version
-	RootCmd.SetHelpTemplate(fmt.Sprintf("%s\nVersion:\n  github.com/gesquive/%s\n",
-		RootCmd.HelpTemplate(), displayVersion))
+func Execute() {
+	RootCmd.SetHelpTemplate(fmt.Sprintf("%s\nVersion:\n  github.com/gesquive/cig %s\n",
+		RootCmd.HelpTemplate(), buildVersion))
 	if err := RootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(-1)
@@ -52,9 +52,9 @@ func Execute(version string) {
 }
 
 func init() {
-	// flags:	-i replace in file
-	// 			-o output
-
+	// TODO: future flags to implement
+	// 		-i replace in file
+	// 		-o output
 	RootCmd.PersistentFlags().BoolVar(&showVersion, "version", false,
 		"Display the version number and exit")
 
@@ -70,13 +70,22 @@ func init() {
 
 }
 
-func runRoot(cmd *cobra.Command, args []string) {
+func preRun(cmd *cobra.Command, args []string) {
+	if showVersion {
+		fmt.Printf("github.com/gesquive/cig\n")
+		fmt.Printf(" Version:    %s\n", buildVersion)
+		if len(buildCommit) > 6 {
+			fmt.Printf(" Git Commit: %s\n", buildCommit[:7])
+		}
+		if buildDate != "" {
+			fmt.Printf(" Build Date: %s\n", buildDate)
+		}
+		fmt.Printf(" Go Version: %s\n", runtime.Version())
+		fmt.Printf(" OS/Arch:    %s/%s\n", runtime.GOOS, runtime.GOARCH)
+		os.Exit(0)
+	}
 	if debug {
 		cli.SetPrintLevel(cli.LevelDebug)
-	}
-	if showVersion {
-		cli.Info(displayVersion)
-		os.Exit(0)
 	}
 	cli.Debug("Running with debug turned on")
 }
