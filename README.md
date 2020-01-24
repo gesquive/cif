@@ -19,6 +19,13 @@ Alternately, you can download the latest release for your platform from [github]
 Once you have an executable, make sure to copy it somewhere on your path like `/usr/local/bin` or `C:/Program Files/`.
 If on a \*nix/mac system, make sure to run `chmod +x /path/to/cig`.
 
+### Homebrew
+This app is also avalable from this [homebrew tap](https://github.com/gesquive/homebrew-tap). Just install the tap and then the app will be available.
+```shell
+$ brew tap gesquive/tap
+$ brew install cig
+```
+
 ## Usage
 
 ```console
@@ -28,14 +35,12 @@ Usage:
   cig [flags] <cert_path> [<cert_path>...]
 
 Flags:
-  -h, --help      help for cig
-  -v, --verbose   Print logs to stdout instead of file
-      --version   Display the version number and exit
+      --version   Display the version info and exit
 ```
 Optionally, a hidden debug flag is available in case you need additional output.
 ```console
 Hidden Flags:
-  -D, --debug     Include debug statements in log output
+  -D, --debug     Include debug statements in output
 ```
 
 You can also pipe in certificates in addition to specified files on the command line:

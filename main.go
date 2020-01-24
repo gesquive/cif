@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	buildVersion = "v0.1.0-dev"
+	buildVersion = "v1.0.0-dev"
 	buildCommit  = ""
 	buildDate    = ""
 )
@@ -53,10 +53,10 @@ func init() {
 	// 		-i replace in file
 	// 		-o output
 	RootCmd.PersistentFlags().BoolVar(&showVersion, "version", false,
-		"Display the version number and exit")
+		"Display the version info and exit")
 
 	RootCmd.PersistentFlags().BoolVarP(&debug, "debug", "D", false,
-		"Include debug statements in log output")
+		"Include debug statements in output")
 	RootCmd.PersistentFlags().MarkHidden("debug")
 }
 

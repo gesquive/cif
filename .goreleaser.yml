@@ -65,3 +65,35 @@ release:
 
   # You can change the name of the GitHub release.
   name_template: "{{.Tag}}"
+
+brews:
+  -
+    # Github repository to push the tap to.
+    github:
+      owner: gesquive
+      name: homebrew-tap
+
+    # Git author used to commit to the repository.
+    # Defaults are shown.
+    commit_author:
+      name: release-bot
+      email: gesquive@gmail.com
+
+    # Folder inside the repository to put the formula.
+    folder: Formula
+
+    # Your app's homepage.
+    homepage: "https://github.com/gesquive/cig"
+
+    # Your app's description.
+    description: "Generate certificate summary information for PEM certificates and output (in mkcert.org format)"
+
+    # If set to auto, the release will not be uploaded to the homebrew tap
+    # in case there is an indicator for prerelease in the tag e.g. v1.0.0-rc1
+    skip_upload: auto
+
+    # Packages your package depends on.
+    dependencies: []
+
+    # Packages that conflict with your package.
+    conflicts: []
