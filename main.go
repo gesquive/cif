@@ -7,7 +7,6 @@ import (
 	"runtime"
 
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 
 	"github.com/gesquive/cig/certs"
 	"github.com/gesquive/cli"
@@ -20,10 +19,8 @@ var (
 )
 
 var cfgFile string
-var displayVersion string
 
 var showVersion bool
-var verbose bool
 var debug bool
 
 func main() {
@@ -58,16 +55,9 @@ func init() {
 	RootCmd.PersistentFlags().BoolVar(&showVersion, "version", false,
 		"Display the version number and exit")
 
-	RootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false,
-		"Print logs to stdout instead of file")
-
 	RootCmd.PersistentFlags().BoolVarP(&debug, "debug", "D", false,
 		"Include debug statements in log output")
 	RootCmd.PersistentFlags().MarkHidden("debug")
-
-	viper.SetEnvPrefix("cig")
-	viper.AutomaticEnv()
-
 }
 
 func preRun(cmd *cobra.Command, args []string) {
