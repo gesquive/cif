@@ -8,5 +8,7 @@ samples/
 *.log
 
 config*.yml
+!.circleci/config.yml
+
 todo.md
 cig

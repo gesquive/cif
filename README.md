@@ -1,8 +1,8 @@
 # cig
 [![Software License](https://img.shields.io/badge/License-MIT-orange.svg?style=flat-square)](https://github.com/gesquive/cig/blob/master/LICENSE)
-[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/gesquive/cig)
-[![Pipeline Status](https://img.shields.io/gitlab/pipeline/gesquive/cig?style=flat-square)](https://gitlab.com/gesquive/cig/pipelines)
-[![Coverage Report](https://gitlab.com/gesquive/cig/badges/master/coverage.svg?style=flat-square)](https://gesquive.gitlab.io/cig/coverage.html)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://pkg.go.dev/github.com/gesquive/cig)
+[![Build Status](https://img.shields.io/circleci/build/github/gesquive/cig?style=flat-square)](https://circleci.com/gh/gesquive/cig)
+[![Coverage Report](https://img.shields.io/codecov/c/gh/gesquive/cig?style=flat-square)](https://codecov.io/gh/gesquive/cig)
 
 Formats PEM certificates in a nice human readable (mkcert.org) format
 

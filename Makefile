@@ -2,7 +2,7 @@
 #  Makefile
 #
 #  A kickass golang v1.13.x makefile
-#  v1.0.5
+#  v1.13.9
 
 export SHELL ?= /bin/bash
 include make.cfg
@@ -24,7 +24,8 @@ INSTALL_PATH ?= /usr/local/bin/
 
 DK_NAME := ${REGISTRY_URL}/${OWNER}/${PROJECT_NAME}
 DK_VERSION = $(shell git describe --always --tags | sed 's/^v//' | sed 's/-g/-/')
-DK_PLATFORMS = linux/amd64,linux/arm/v7,linux/arm64
+DK_PLATFORMS ?= linux/amd64,linux/arm/v7,linux/arm64
+DK_PATH ?= Dockerfile
 
 BIN ?= ${GOPATH}/bin
 GOLINT ?= ${BIN}/golint
@@ -92,7 +93,7 @@ coverage-report: ## Generate global code coverage report
 
 .PHONY: race
 race: ## Run data race detector
-	${GOCC} test -race ${PKG_LIST}
+	CGO_ENABLED=1 ${GOCC} test -race ${PKG_LIST}
 
 .PHONY: clean
 clean: ## Clean the directory tree
@@ -108,7 +109,7 @@ release-snapshot: ${GORELEASER} ## Cross compile and package to local disk
 
 .PHONY: release
 release: ${GORELEASER} ## Cross compile and package the full distribution
-	${GORELEASER} release
+	${GORELEASER} release --rm-dist
 
 .PHONY: fmt
 fmt: ## Reformat the source tree with gofmt
@@ -131,7 +132,7 @@ ${BIN}/goreleaser: PACKAGE=github.com/goreleaser/goreleaser
 build-docker: ## Build the docker image
 	@echo "building ${MK_VERSION}"
 	${DOCKER} info
-	${DOCKER} build --pull -t ${DK_NAME}:${MK_VERSION} .
+	${DOCKER} build -f ${DK_PATH} --build-arg TARGETARCH=amd64 --build-arg TARGETOS=linux --pull -t ${DK_NAME}:${MK_VERSION} .
 
 # build manifest for git describe
 # manifest version is "1.2.3-g23ab3df"
@@ -139,16 +140,17 @@ build-docker: ## Build the docker image
 
 .PHONY: init-docker-build
 init-docker-build:
-	${DOCKER} buildx create --driver docker-container --name gobuild --use
+	${DOCKER} context create build
+	${DOCKER} buildx create --driver docker-container --name gobuild --use build
 	${DOCKER} buildx inspect --bootstrap
 	${DOCKER} buildx ls
 
 .PHONY: release-docker-snapshot
 release-docker-snapshot: init-docker-build
 	@echo "building multi-arch docker ${DK_VERSION}"
-	${DOCKER} buildx build --platform ${DK_PLATFORMS} --pull -t ${DK_NAME}:${DK_VERSION} --push .
+	${DOCKER} buildx build -f ${DK_PATH} --platform ${DK_PLATFORMS} --pull -t ${DK_NAME}:${DK_VERSION} --push .
 
 .PHONY: release-docker
 release-docker: init-docker-build ## Build a multi-arch docker manifest and images
 	@echo "building multi-arch docker ${DK_VERSION}"
-	${DOCKER} buildx build --platform ${DK_PLATFORMS} --pull -t ${DK_NAME}:${DK_VERSION} -t ${DK_NAME}:latest --push .
+	${DOCKER} buildx build -f ${DK_PATH} --platform ${DK_PLATFORMS} --pull -t ${DK_NAME}:${DK_VERSION} -t ${DK_NAME}:latest --push .
