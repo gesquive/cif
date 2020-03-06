@@ -85,7 +85,7 @@ brews:
     folder: Formula
 
     # Your app's homepage.
-    homepage: "https://github.com/gesquive/cig"
+    homepage: "https://github.com/gesquive/cif"
 
     # Your app's description.
     description: "Generate certificate summary information for PEM certificates and output (in mkcert.org format)"

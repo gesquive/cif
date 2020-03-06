@@ -8,7 +8,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/gesquive/cig/certs"
+	"github.com/gesquive/cif/certs"
 	"github.com/gesquive/cli"
 )
 
@@ -29,7 +29,7 @@ func main() {
 
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
-	Use:              "cig [flags] <cert_path> [<cert_path>...]",
+	Use:              "cif [flags] <cert_path> [<cert_path>...]",
 	Short:            "Formats PEM certificates in a human readable (mkcert.org) format",
 	Long:             `Generate certificate summary information for PEM certificates and output (in mkcert.org format)`,
 	ValidArgs:        []string{"cert_path"},
@@ -40,7 +40,7 @@ var RootCmd = &cobra.Command{
 // Execute adds all child commands to the root command sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
-	RootCmd.SetHelpTemplate(fmt.Sprintf("%s\nVersion:\n  github.com/gesquive/cig %s\n",
+	RootCmd.SetHelpTemplate(fmt.Sprintf("%s\nVersion:\n  github.com/gesquive/cif %s\n",
 		RootCmd.HelpTemplate(), buildVersion))
 	if err := RootCmd.Execute(); err != nil {
 		fmt.Println(err)
@@ -62,7 +62,7 @@ func init() {
 
 func preRun(cmd *cobra.Command, args []string) {
 	if showVersion {
-		fmt.Printf("github.com/gesquive/cig\n")
+		fmt.Printf("github.com/gesquive/cif\n")
 		fmt.Printf(" Version:    %s\n", buildVersion)
 		if len(buildCommit) > 6 {
 			fmt.Printf(" Git Commit: %s\n", buildCommit[:7])

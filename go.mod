@@ -1,4 +1,4 @@
-module github.com/gesquive/cig
+module github.com/gesquive/cif
 
 go 1.13
 
